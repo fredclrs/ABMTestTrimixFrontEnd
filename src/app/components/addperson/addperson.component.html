@@ -1,0 +1,62 @@
+<form id="form" [formGroup]="formGroup" (ngSubmit)="data != null ? edit() : save()" novalidate>
+  <title mat-dialog-title class="modal-header">{{data != null ? 'Editar persona' : 'Registro de persona' }}</title>
+  <content mat-dialog-content class="modal-body">
+    <div class="row">
+      <div class="col-sm-12 col-xl-3">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" formControlName="nombre" [(ngModel)]="person.nombre">
+        <div *ngIf="formGroup.controls['nombre'].invalid" class="alert alert-danger" role="alert">
+          <strong> Nombre requerido! </strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xl-3">
+        <label class="form-label">Apellido</label>
+        <input class="form-control" formControlName="apellido" [(ngModel)]="person.apellido">
+        <div *ngIf="formGroup.controls['apellido'].invalid" class="alert alert-danger" role="alert">
+          <strong> El Apellido es requerido! </strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xl-3">
+        <label class="form-label">Numero Documento</label>
+        <input class="form-control" formControlName="numeroDocumento" [(ngModel)]="person.numeroDocumento">
+        <div *ngIf="formGroup.controls['numeroDocumento'].invalid" class="alert alert-danger" role="alert">
+          <strong> El Numero de documento es requerido! </strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xl-3">
+        <label class="form-label">Tipo Documento</label>
+        <select matNativeControl name="tipoDocumento" id="tipoDocumento" class="form-select" formControlName="tipoDocumento" [(ngModel)]="person.tipoDocumento">
+          <option value="">Todas</option>
+          <option value="1">DNI</option>
+          <option value="2">Pasaporte</option>
+          <option value="3">CI</option>
+        </select>
+        <div *ngIf="formGroup.controls['tipoDocumento'].invalid" class="alert alert-danger" role="alert">
+          <strong> El tipo de documento es requerido! </strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xl-3">
+        <label class="form-label">Fecha Nacimiento</label>
+        <input style="border-color: #e4e5e7; background-color: #F6FAFE;" class="date-picker" matInput
+          formControlName="fechaNacimiento" [matDatepicker]="fechaNacimiento" [(ngModel)]="person.fechaNacimiento">
+        <mat-datepicker-toggle matSuffix [for]="fechaNacimiento"></mat-datepicker-toggle>
+        <mat-datepicker #fechaNacimiento>
+        </mat-datepicker>
+        <div *ngIf="formGroup.controls['fechaNacimiento'].invalid" class="alert alert-danger" role="alert">
+          <strong> La fecha de nacimiento es requerido! </strong>
+        </div>
+      </div>
+
+    </div>
+
+  </content>
+</form>
+<actions mat-dialog-actions>
+  <button mat-button cdkFocusInitial class="btn btn-danger btn-border" (click)="close()">Cancelar</button>
+  <button mat-button type="submit" class="btn btn-success btn-border" [disabled]="formGroup.invalid"
+    form="form">Guardar</button>
+</actions>
